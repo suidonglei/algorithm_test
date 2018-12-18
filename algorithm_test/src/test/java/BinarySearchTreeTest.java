@@ -45,6 +45,7 @@ class Solution1 {
     }
 }
 class SolutionIterator {
+    //SolutionIterator first version
     public boolean isValidBST(TreeNode root) {
         if(root == null) {
             return true;
