@@ -21,7 +21,7 @@ class TreeNode {
     TreeNode right;
     TreeNode(int x) { val = x; }
 }
-class Solution1 {
+class RecursionSolution {
     public boolean isValidBST(TreeNode root) {
         if(root == null) {
             return true;
@@ -44,8 +44,7 @@ class Solution1 {
         }
     }
 }
-class SolutionIterator {
-    //SolutionIterator first version
+class IteratorSolution {
     public boolean isValidBST(TreeNode root) {
         if(root == null) {
             return true;
