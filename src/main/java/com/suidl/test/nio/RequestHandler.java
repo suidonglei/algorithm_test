@@ -1,4 +1,4 @@
-package com.jd.point.nio;
+package com.suidl.test.nio;
 
 import java.io.PrintWriter;
 import java.net.Socket;

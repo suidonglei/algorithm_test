@@ -1,4 +1,4 @@
-package com.jd.point.nio;
+package com.suidl.test.nio;
 
 import java.io.IOException;
 import java.net.ServerSocket;
