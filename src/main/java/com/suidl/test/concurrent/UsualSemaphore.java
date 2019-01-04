@@ -1,4 +1,4 @@
-package com.suidl.test.semaphore;
+package com.suidl.test.concurrent;
 
 import java.util.concurrent.Semaphore;
 
