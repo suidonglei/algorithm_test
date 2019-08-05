@@ -1,3 +1,5 @@
+package com.suidl.test;
+
 @FunctionalInterface
 public interface Bird {
     void fly();

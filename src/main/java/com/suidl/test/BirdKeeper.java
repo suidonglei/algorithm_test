@@ -1,3 +1,5 @@
+package com.suidl.test;
+
 import java.util.function.Function;
 
 public class BirdKeeper {

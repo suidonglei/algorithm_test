@@ -1,14 +1,13 @@
+import com.suidl.test.Bird;
+import com.suidl.test.BirdKeeper;
+import com.suidl.test.NewBird;
 import org.junit.Test;
 
-import javax.swing.text.html.Option;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAdjuster;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class LambdaTest {
     @Test
@@ -35,7 +34,7 @@ public class LambdaTest {
             System.out.println(bird.getName());
         });
         System.out.println(newBird.getName());
-        //List<NewBird> returnBirds = stream.collect(Collectors.toList());
+        //List<com.suidl.test.NewBird> returnBirds = stream.collect(Collectors.toList());
         //System.out.println(returnBirds);
 
 

@@ -1,3 +1,5 @@
+package com.suidl.test;
+
 public class NewBird extends BlackBird implements Bird {
     private String name;
     private int age;
