@@ -1,5 +1,10 @@
 package learn.algorithm.sliding;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 /**
  * @author suidonglei
  * @title: MaxSlidingWindow
@@ -23,42 +28,20 @@ public class MaxSlidingWindow {
      */
     public static int[] maxSlidingWindow(int[] nums, int k) {
         if(null == nums || nums.length == 0) return new int[]{};
-        int[] returnArray = new int[nums.length - (k -1)];
-        int index1 = 0, index2 = 0, value1 = nums[0], value2 = nums[0];
-        if(nums.length > 1) {
-            index2 = 1;
-            value2 = nums[1];
-        }
-        int returnIndex = 0, firstIndex = 0;
+        int[] returnArray = new int[nums.length - k + 1];
+        int returnIndex = 0;
+        Deque<Integer> deque = new ArrayDeque<>(k);//存储下标
         for(int i = 0; i < nums.length; i ++) {
-            if((i - firstIndex + 1) > k) {//达到窗口
-                returnArray[returnIndex] = value1;
+            if(i >= k && deque.peekFirst() <= i-k) {
+                deque.removeFirst();
+            }
+            while(deque.size() > 0 && nums[deque.peekLast()] <= nums[i]){
+                deque.removeLast();
+            }
+            deque.addLast(i);
+            if(i >= k - 1) {
+                returnArray[returnIndex] = nums[deque.peekFirst()];
                 returnIndex ++;
-                if(index1 <= firstIndex) {
-                    index1 = index2;
-                    value1 = value2;
-                    if(index1 < (nums.length - 1)) {
-                        index2 = index1 + 1;
-                        value2 = nums[index1 + 1];
-                    }
-                }
-                firstIndex ++;
-            }
-            if(nums[i] >= nums[index1]) {
-                index1 = i;
-                value1 = nums[i];
-                if(index2 == index1) {
-                    if(index1 < (nums.length - 1)) {
-                        index2 = index1 + 1;
-                        value2 = nums[index1 + 1];
-                    }
-                }
-            } else if(nums[i] >= nums[index2]){
-                index2 = i;
-                value2 = nums[i];
-            }
-            if(i == nums.length - 1) {
-                returnArray[returnIndex] = value1;
             }
         }
         return returnArray;

@@ -16,15 +16,7 @@ import java.util.PriorityQueue;
  */
 public class KthLargest {
     private int k;
-    private PriorityQueue<Integer> priorityQueue = new PriorityQueue<>((obj1, obj2) -> {
-        if(obj1 > obj2) {
-            return 1;
-        } else if (obj1 < obj2){
-            return -1;
-        } else{
-            return 0;
-        }
-    });;
+    private PriorityQueue<Integer> priorityQueue = new PriorityQueue<>((obj1, obj2) -> obj2 - obj1);
     /**
      * accepts an integer k and an integer array nums
      * @param k
