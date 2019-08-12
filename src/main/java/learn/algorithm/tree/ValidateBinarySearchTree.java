@@ -45,30 +45,40 @@ public class ValidateBinarySearchTree {
         values.add(treeNode.val);
         inOrderTraversal(values, treeNode.right);
     }
-
+}
+class Solution01{
     private TreeNode previous;
-    public boolean isValidBST01(TreeNode root) {
+    public boolean isValidBST(TreeNode root) {
         if(null == root) {
             return true;
         }
-        return inOrderTraversal01(root);
+        return inOrderTraversal(root);
     }
-    boolean  inOrderTraversal01(TreeNode treeNode) {
+    boolean  inOrderTraversal(TreeNode treeNode) {
         if(null == treeNode) {
             return true;
         }
-        if (!inOrderTraversal01(treeNode.left))
+        if (!inOrderTraversal(treeNode.left))
             return false;
         if(previous != null && previous.val >= treeNode.val)
             return false;
         previous = treeNode;
-        return inOrderTraversal01(treeNode.right);
+        return inOrderTraversal(treeNode.right);
     }
-
-    public static void main(String[] args) {
-        TreeNode treeNode = new TreeNode(1);
-        treeNode.left = new TreeNode(11);
-//        System.out.println(isValidBST01(treeNode));
+}
+class Solution02{
+    public boolean isValidBST(TreeNode root) {
+        if(null == root) {
+            return true;
+        }
+        return isValid(root, null, null);
+    }
+    public boolean isValid(TreeNode root, Integer min, Integer max) {
+        if(null == root)
+            return true;
+        if(min != null && root.val <= min) return false;
+        if(max != null && root.val >= max) return false;
+        return isValid(root.left, min, root.val) && isValid(root.right, root.val, max);
     }
 }
 class TreeNode {
