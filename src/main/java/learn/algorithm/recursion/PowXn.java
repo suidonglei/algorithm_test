@@ -62,14 +62,14 @@ class Divide{
     }
 }
 class BitwiseOperation{
-    public double myPow(double x, int n) {
+    public static double myPow(double x, int n) {
         if(x == 0.0 || x == 1.0) return x;
         if(n == 0) return 1.0;
         if(n == 1) return x;
         double result = 1.0;
         if(n < 0) {
             if (n == Integer.MIN_VALUE) {
-                result = x;
+                result = 1/x;
                 n += 1;
             }
             x = 1/x;
@@ -91,5 +91,6 @@ class BitwiseOperation{
         System.out.println(Integer.MIN_VALUE);
         System.out.println(-Integer.MIN_VALUE);
         System.out.println(-(Integer.MIN_VALUE + 1));
+        System.out.println(myPow(2, Integer.MIN_VALUE));
     }
 }
