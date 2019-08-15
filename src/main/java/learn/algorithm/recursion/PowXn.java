@@ -26,33 +26,38 @@ public class PowXn {
 
     }
 
+
+    public static void main(String[] args) {
+        System.out.println(myPow(2, 10));
+        int i = 1;
+        System.out.println(i/2);
+    }
+}
+class Divide{
     /**
      * divide
      * @param x
      * @param n
      * @return
      */
-    public static double myPow1(double x, int n) {
+    public double myPow(double x, int n) {
+        if(x == 0.0 || x == 1.0) return x;
         if(n == 0) return 1.0;
+        if(n == 1) return x;
         if(n > 0) {
-            return calculate(x, n);
+            if(n % 2  == 0) {
+                double result = myPow(x, n/2);
+                return result * result;
+            } else {
+                double result = myPow(x, n/2);
+                return x * result * result;
+            }
         } else {
-            return calculate(1/x, -n);
+            // special case for MIN_VALUE since -MIN_VALUE = MAX_VALUE+1
+            if (n == Integer.MIN_VALUE)
+                return myPow(x, n+1)/x;
+            else
+                return 1.0/myPow(x, -n);
         }
-    }
-    private static double calculate(double x, int n) {
-        if(n==1) return x;
-        if(n==0) return x;
-        if(n % 2 == 1) {
-            return x* calculate(x*x,n/2) ;
-        } else {
-            return calculate(x*x,n/2) ;
-        }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(myPow1(2, 10));
-        int i = 1;
-        System.out.println(i/2);
     }
 }
