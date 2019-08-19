@@ -52,6 +52,8 @@ public class CommonAncestor {
         TreeNode right = findPorQ(root.right, p, q);
         return left == null ? right : right == null ? left : root;
     }
+
+
     public TreeNode lowestCommonAncestorNoRecursion(TreeNode root, TreeNode p, TreeNode q) {
         //非递归的方式
         while(root != null){
