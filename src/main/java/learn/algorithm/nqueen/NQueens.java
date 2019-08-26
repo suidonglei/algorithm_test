@@ -32,13 +32,15 @@ public class NQueens {
     Set<Integer> positiveLine = new HashSet<>();//点(x,y)  斜线为 x-y=n
     Set<Integer> negativeLine = new HashSet<>();//点(x,y)  斜线为 x+y=n
     Set<Integer> yLine = new HashSet<>();
-    for (int x = 1; x <= n; x ++) {
-      for (int y = 1; y <= n; y ++) {
-
-      }
-    }
+    nQueens(n, positiveLine, negativeLine, yLine, resultList);
     return resultList;
   }
+
+  private void nQueens(int n, Set<Integer> positiveLine, Set<Integer> negativeLine,
+      Set<Integer> yLine, List<List<String>> resultList) {
+
+  }
+
 }
 
 /**
