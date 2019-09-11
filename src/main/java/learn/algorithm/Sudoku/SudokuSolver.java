@@ -29,47 +29,45 @@ public class SudokuSolver {
    * @param board
    */
   public void solveSudoku(char[][] board) {
-    //剪枝集合
-    List<Set<Character>> row = new ArrayList<>();
-    List<Set<Character>> col = new ArrayList<>();
-    List<Set<Character>> block = new ArrayList<>();
-    int columnIndex = 0;
-    helperSolver(columnIndex, board, row, col, block);
+    if (null == board || board.length == 0) return;
+    solvehelper(board);
   }
 
-  private void helperSolver(int columnIndex, char[][] board, List<Set<Character>> row, List<Set<Character>> col, List<Set<Character>> block) {
-    if (columnIndex == 9) {
-      return;
-    }
-    for (int rowIndex = 0; rowIndex < 9; rowIndex ++) {
-      if('.' == board[rowIndex][columnIndex]) {
+  private boolean solvehelper(char[][] board) {
+    for (int i = 0; i < board.length; i ++) {
+      for (int j = 0; j < board.length; j ++) {
+        if (board[i][j] == '.') {
           for (char c = '1'; c <= '9'; c++) {
-            Set<Character> rowSet = row.get(rowIndex);
-            if(null == rowSet) {
-              rowSet = new HashSet<>();
-              row.add(rowIndex, rowSet);
+            if (isValid(board, i, j, c)) {
+              board[i][j] = c;
+              if (solvehelper(board)) {
+                return true;
+              } else {
+                board[i][j] = '.';
+              }
             }
-            Set<Character> colSet = col.get(columnIndex);
-            if(null == colSet) {
-              colSet = new HashSet<>();
-              col.add(columnIndex, colSet);
-            }
-            Set<Character> blockSet = block.get(rowIndex*3 + columnIndex);
-            if(null == blockSet) {
-              blockSet = new HashSet<>();
-              block.add(rowIndex*3 + columnIndex, blockSet);
-            }
-
-            if(rowSet.contains(c) || colSet.contains(c) || blockSet.contains(c)) {
-              continue;
-            }
-            rowSet.add(c);colSet.add(c);blockSet.add(c);
-            board[rowIndex][columnIndex] = c;
-            helperSolver();
-
-
           }
+          return false;
+        }
       }
     }
+    return true;
   }
+
+  private boolean isValid(char[][] board, int row, int col, char c) {
+    for (int i = 0; i < 9; i++) {
+      if (board[i][col] != '.' && board[i][col] == c) {
+        return false;
+      }
+      if (board[row][i] != '.' && board[row][i] == c) {
+        return false;
+      }
+      if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] != '.'
+          && board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }
