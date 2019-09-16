@@ -1,8 +1,7 @@
 package learn.algorithm.search;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author suidonglei
@@ -21,8 +20,11 @@ import java.util.Set;
 public class WordSearch {
 
   public List<String> findWords(char[][] board, String[] words) {
-
-    return null;
+    List<String> returnList = new ArrayList<>();
+    for(String word : words) {
+      if(exist(board, word)) returnList.add(word);
+    }
+    return returnList;
   }
 
   /**
@@ -37,7 +39,7 @@ public class WordSearch {
    * @param word
    * @return
    */
-  public boolean exist(char[][] board, String word) {
+  private boolean exist(char[][] board, String word) {
     if (null == word || word.length() == 0) return true;
     if (null == board) return false;
     char[] wordChars = word.toCharArray();
@@ -68,7 +70,7 @@ public class WordSearch {
 
   public static void main(String[] args) {
     WordSearch wordSearch = new WordSearch();
-    char[][] board = new char[][]{{'a','a'}};
-    System.out.println(wordSearch.exist(board, "aaa"));
+    char[][] board = new char[][]{{'c','a','a'},{'a','a','a'},{'b','c','d'}};
+    System.out.println(wordSearch.exist(board, "aab"));
   }
 }
