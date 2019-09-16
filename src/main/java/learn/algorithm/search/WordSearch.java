@@ -44,74 +44,31 @@ public class WordSearch {
     for(int row = 0; row < board.length; row ++) {
 //      char[] charRow =
       for(int col = 0; col < board[row].length; col ++) {
-        if (board[row][col] == wordChars[0]) {
-          Set<String> path = new HashSet<>();
-          path.add(row + "," + col);
-          if (dfs(board, wordChars, row, col, 0, path)) return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  private boolean dfs(char[][] board, char[] wordChars, int row, int col, int index, Set<String> path) {
-    if (index == wordChars.length - 1) return true;
-    index ++;
-    //up
-    if (row > 0) {
-      row = row - 1;
-      if (dfsCheck(board, wordChars, row, col, index, path)) {
-        return true;
-      }
-      row = row + 1;
-    }
-    //down
-    if (row < board.length - 1) {
-      row = row + 1;
-      if (dfsCheck(board, wordChars, row, col, index, path)) {
-        return true;
-      }
-      row = row - 1;
-    }
-    //left
-    if (col > 0) {
-      col = col - 1;
-      if (dfsCheck(board, wordChars, row, col, index, path)) {
-        return true;
-      }
-      col = col + 1;
-    }
-
-    //right
-    if (col < board[row].length - 1) {
-      col = col + 1;
-      if (dfsCheck(board, wordChars, row, col, index, path)) {
-        return true;
-      }
-      col = col - 1;
-    }
-
-    return false;
-  }
-
-  private boolean dfsCheck(char[][] board, char[] wordChars, int row, int col, int index,
-      Set<String> path) {
-    String pat = row + "," + col;
-    if (!path.contains(pat)) {
-      path.add(pat);
-      if (board[row][col] == wordChars[index]) {
-        if (dfs(board, wordChars, row, col, index, path))
+        if(board[row][col] == wordChars[0] && dfs(board, wordChars, row, col, 0))
           return true;
       }
-      path.remove(pat);
     }
     return false;
   }
+
+  private boolean dfs(char[][] board, char[] wordChars, int row, int col, int index) {
+    if (index == wordChars.length) return true;
+    if (row == -1 || row == board.length || col == -1 || col == board[0].length || board[row][col] != wordChars[index])
+      return false;
+    char temp = board[row][col];
+    board[row][col] = ' ';
+    boolean found = dfs(board, wordChars, row + 1, col, index + 1) ||
+        dfs(board, wordChars, row - 1, col, index + 1) ||
+        dfs(board, wordChars, row, col + 1, index + 1) ||
+        dfs(board, wordChars, row, col - 1, index + 1);
+    board[row][col] = temp;
+    return found;
+  }
+
 
   public static void main(String[] args) {
     WordSearch wordSearch = new WordSearch();
-    char[][] board = new char[][]{{'c','a','a'},{'a','a','a'},{'b','c','d'}};
-    System.out.println(wordSearch.exist(board, "aab"));
+    char[][] board = new char[][]{{'a','a'}};
+    System.out.println(wordSearch.exist(board, "aaa"));
   }
 }
