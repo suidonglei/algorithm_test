@@ -68,15 +68,15 @@ public class WordSearch {
 
   private void dfs(TrieNode trieNode, char[][] board, int row,
       int col, StringBuilder stringBuilder) {
+    if(col == -1 || row == -1 || row == board.length || col == board[row].length) return;
+    char temp = board[row][col];
+    if (temp == visitedWord) return;
+    if (!trieNode.startsWith(stringBuilder.toString())) return;
+    stringBuilder.append(temp);
     String currentWord = stringBuilder.toString();
     if (trieNode.search(currentWord)) {
       foundString.add(currentWord);
     }
-    if(col == -1 || row == -1 || row == board.length || col == board[row].length) return;
-    char temp = board[row][col];
-    if (temp == visitedWord) return;
-    if (!trieNode.startsWith(currentWord)) return;
-    stringBuilder.append(temp);
     board[row][col] = visitedWord;
     dfs(trieNode, board, row + 1, col, stringBuilder);
     dfs(trieNode, board, row - 1, col, stringBuilder);
@@ -131,4 +131,10 @@ public class WordSearch {
     }
   }
 
+  public static void main(String[] args) {
+    WordSearch wordSearch = new WordSearch();
+    char[][] board = new char[][]{{'o','a','a','n'},{'e','t','a','e'},{'i','h','k','r'},{'i','f','l','v'}};
+    String[] words = new String[]{"oath","pea","eat","rain"};
+    System.out.println(wordSearch.findWords(board, words));
+  }
 }
