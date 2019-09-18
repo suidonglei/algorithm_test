@@ -54,4 +54,15 @@ public class TempTest {
         Assert.assertEquals(4, a);
 
     }
+    @Test
+    public void should_test() {
+        //given
+        int x = 9;
+        System.out.println(x & ( x - 1));
+        System.out.println(x & 1);
+        //when
+
+        //then
+
+    }
 }
