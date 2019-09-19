@@ -80,7 +80,30 @@ public class NQueens {
  * Given an integer n, return the number of distinct solutions to the n-queens puzzle.
  */
 class NQueens_2 {
+  private int count = 0;
   public int totalNQueens(int n) {
-    return 1;
+    if (n < 1) return count;
+    dfs(0, 0, 0, 0, n);
+    return count;
+  }
+
+  private void dfs(int row, int col, int pie, int na, int length) {
+    // recursion terminator
+    if (row >= length) {
+      count ++;
+      return;
+    }
+    //get location 转换为1可用0不可用
+    int bits = (~(col | pie | na)) & ((1 << length) - 1);
+    while (bits > 0) {
+      int position = bits & -bits;//得到最后一个1 的位
+      dfs(row + 1, col | position, (pie | position) << 1, (na | position) >> 1, length);
+      bits &= bits - 1;
+    }
+  }
+
+  public static void main(String[] args) {
+    int input = 10;
+    System.out.println( input & (-input));
   }
 }
