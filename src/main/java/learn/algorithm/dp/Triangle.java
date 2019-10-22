@@ -1,5 +1,6 @@
 package learn.algorithm.dp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,12 +34,23 @@ public class Triangle {
         if (result != null && sum >= result) return;
         if(index == triangle.get(depth).size()) return;
         sum += triangle.get(depth).get(index);
-        dfs(triangle, depth + 1, index, sum);
-        dfs(triangle, depth + 1, index + 1, sum);
+        depth ++;
+        dfs(triangle, depth, index, sum);
+        dfs(triangle, depth, index + 1, sum);
+        depth --;
         sum -= triangle.get(depth).get(index);
     }
 
     public static void main(String[] args) {
-
+        List<List<Integer>> triangleList = new ArrayList<>();
+        List<Integer> integers = new ArrayList<>();
+        integers.add(-1);
+        List<Integer> integers1 = new ArrayList<>();
+        integers1.add(-2);
+        integers1.add(-3);
+        triangleList.add(integers);
+        triangleList.add(integers1);
+        Triangle triangle = new Triangle();
+        triangle.minimumTotal(triangleList);
     }
 }
