@@ -20,6 +20,23 @@ import java.util.List;
  *
  */
 public class Triangle {
+    /**
+     * 动态规划方式
+     *
+     */
+    public int dpMinimumTotal(List<List<Integer>> triangle) {
+        if(null == triangle || triangle.size() == 0) return 0;
+        List<Integer> resultList = new ArrayList<>();
+        resultList.addAll(triangle.get(triangle.size() - 1));
+        for(int index = triangle.size() - 2; index >= 0; index --) {
+            List<Integer> tempList = triangle.get(index);
+            for(int j = 0; j < tempList.size(); j ++) {
+                resultList.set(j, (Math.min(resultList.get(j), resultList.get(j + 1)) + tempList.get(j)));
+            }
+        }
+        return  resultList.get(0);
+    }
+
     Integer result;
     public int minimumTotal(List<List<Integer>> triangle) {
         if(null == triangle || triangle.size() == 0) return 0;
@@ -31,13 +48,10 @@ public class Triangle {
             if(result == null || sum < result) result = sum;
             return;
         }
-        if (result != null && sum >= result) return;
         if(index == triangle.get(depth).size()) return;
         sum += triangle.get(depth).get(index);
-        depth ++;
-        dfs(triangle, depth, index, sum);
-        dfs(triangle, depth, index + 1, sum);
-        depth --;
+        dfs(triangle, depth + 1, index, sum);
+        dfs(triangle, depth + 1, index + 1, sum);
         sum -= triangle.get(depth).get(index);
     }
 
@@ -46,11 +60,17 @@ public class Triangle {
         List<Integer> integers = new ArrayList<>();
         integers.add(-1);
         List<Integer> integers1 = new ArrayList<>();
-        integers1.add(-2);
-        integers1.add(-3);
+        integers1.add(2);
+        integers1.add(3);
+        List<Integer> integers2 = new ArrayList<>();
+        integers2.add(1);
+        integers2.add(-1);
+        integers2.add(-3);
         triangleList.add(integers);
         triangleList.add(integers1);
+        triangleList.add(integers2);
         Triangle triangle = new Triangle();
-        triangle.minimumTotal(triangleList);
+        System.out.println(triangle.minimumTotal(triangleList));
+        System.out.println(triangle.dpMinimumTotal(triangleList));
     }
 }
