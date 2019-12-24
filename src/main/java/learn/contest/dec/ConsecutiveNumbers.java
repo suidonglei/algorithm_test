@@ -1,9 +1,6 @@
 package learn.contest.dec;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 1296. Divide Array in Sets of K Consecutive Numbers
@@ -14,9 +11,40 @@ import java.util.Objects;
  */
 public class ConsecutiveNumbers {
     public boolean isPossibleDivide(int[] nums, int k) {
-        if(Objects.isNull(nums)) return false;
+        if(Objects.isNull(nums))
+            return false;
+        if(nums.length % k != 0)
+            return false;
+        //greedy algorithm
         int[] operNums = Arrays.copyOf(nums, nums.length);
-        if(nums.length % k != 0) return false;
+        Arrays.sort(operNums);
+
+        Map<Integer, Integer> numMap = new HashMap<>();
+        for (int num : operNums) {
+            if(Objects.isNull(numMap.get(num))) {
+                numMap.put(num, 1);
+            } else {
+                numMap.put(num, numMap.get(num) + 1);
+            }
+        }
+        int start = operNums[0];
+        while (start < operNums[operNums.length - 1]) {
+            int startCount = numMap.get(start);
+            for(int i = 0; i < k; i ++) {
+                if(Objects.isNull(numMap.get(start + i)))
+                    return false;
+                if(numMap.get(start + i) - numMap.get(start) < 0)
+                    return false;
+                numMap.put(start + i, numMap.get(start + i) - startCount);
+            }
+            start ++;
+            while((Objects.isNull(numMap.get(start)) || numMap.get(start) == 0) && start <= operNums[operNums.length - 1]) {
+                start ++;
+            }
+        }
+        return true;
+
+        /*int[] operNums = Arrays.copyOf(nums, nums.length);
         Arrays.sort(operNums);
         Map<Integer, Integer> numMap = new HashMap<>();
         for (int num : operNums) {
@@ -60,12 +88,38 @@ public class ConsecutiveNumbers {
                 tempMinCount = 0;
             }
         }
-        return count > 0;
+        return count > 0;*/
+    }
+
+    public boolean isPossibleDividePriority(int[] nums, int k) {
+        int len = nums.length;
+        if (len % k != 0) {
+            return false;
+        }
+
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(len);
+        for (int num : nums) {
+            minHeap.offer(num);
+        }
+
+        while (!minHeap.isEmpty()) {
+            Integer top = minHeap.poll();
+
+            for (int i = 1; i < k; i++) {
+                // 从 1 开始，正好需要移除 k - 1 个元素
+                // i 正好就是相对于 top 的偏移
+                // 注意：这个 remove 操作会线性去扫 top + i 的索引，时间复杂度是 O(N)
+                if (!minHeap.remove(top + i)) {
+                    // 如果移除失败，说明划分不存在，直接返回 false 即可
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
         ConsecutiveNumbers consecutiveNumbers = new ConsecutiveNumbers();
-        System.out.println(consecutiveNumbers.isPossibleDivide(new int[]{3,2,1,2,3,4,3,4,5,9,10,11}, 3));
+        System.out.println(consecutiveNumbers.isPossibleDivide(new int[]{1,2,3,3,4,4,5,6}, 4));
     }
-
 }
