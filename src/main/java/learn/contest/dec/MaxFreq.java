@@ -8,7 +8,17 @@ package learn.contest.dec;
  * The substring size must be between minSize and maxSize inclusive.
  */
 public class MaxFreq {
+    /**
+     * 必须 限时完成
+     *
+     * @param s
+     * @param maxLetters
+     * @param minSize
+     * @param maxSize
+     * @return
+     */
     public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
+
         return 0;
     }
 }
