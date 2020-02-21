@@ -38,4 +38,9 @@ public class ProxyTest {
             }
         }
     }
+
+    @Test
+    public void tempTest() {
+        System.out.println( 132341&1);
+    }
 }
